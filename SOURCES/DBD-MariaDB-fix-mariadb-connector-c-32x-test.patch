@@ -1,0 +1,13 @@
+diff -up DBD-MariaDB-1.21/t/45bind_no_backslash_escapes.t.orig DBD-MariaDB-1.21/t/45bind_no_backslash_escapes.t
+--- DBD-MariaDB-1.21/t/45bind_no_backslash_escapes.t.orig	2022-02-17 14:00:30.765461191 +0100
++++ DBD-MariaDB-1.21/t/45bind_no_backslash_escapes.t	2022-02-17 14:01:54.388057993 +0100
+@@ -19,7 +19,8 @@ if ($dbh->{mariadb_serverversion} < 5000
+     plan skip_all => "Servers < 5.0.1 do not support sql_mode NO_BACKSLASH_ESCAPES";
+ }
+ 
+-if ($dbh->{mariadb_clientversion} < 50001) {
++# As from mariadb-connect-c 3.2.x version number for mariadb_clientversion is 3020x
++if ($dbh->{mariadb_clientversion} < 50001 && $dbh->{mariadb_serverversion} < 50001) {
+     $id2_quoted_no_backslash = q(X'737472696E675C737472696E6722737472696E6727737472696E67');
+ }
+ 
